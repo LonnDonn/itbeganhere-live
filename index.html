@@ -1,35 +1,140 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>It Began Here</title>
-    <style>
-        body {
-            background-color: #f9f8f6;
-            font-family: 'Georgia', serif;
-            color: #333;
-            text-align: center;
-            padding: 50px;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 30px;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>It Began Here – Közös Ajtó</title>
+  <style>
+    :root {
+      --pulse-gold: #F5C469;
+      --pulse-blue: #A3DFF8;
+      --pulse-green: #A9F6D2;
+      --background-dark: #0E0E0E;
+      --text-light: #FDFDFD;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-dark);
+      color: var(--text-light);
+    }
+
+    #welcomeOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, var(--pulse-blue) 0%, var(--background-dark) 100%);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 10000;
+      padding: 2rem;
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #welcomeOverlay h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--pulse-gold);
+    }
+
+    #welcomeOverlay em {
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--pulse-green);
+    }
+
+    #welcomeOverlay p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .enter-button {
+      margin-top: 2rem;
+      padding: 0.6rem 1.8rem;
+      background-color: var(--pulse-gold);
+      color: #111;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      width: 80px;
+      height: 80px;
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease;
+    }
+
+    .enter-button::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: transform 0.5s ease-out;
+      pointer-events: none;
+    }
+
+    .enter-button:hover::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .qr-section {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+
+    .qr-section img {
+      width: 160px;
+      border-radius: 12px;
+      border: 2px solid var(--pulse-green);
+    }
+
+    .qr-section p {
+      font-size: 1rem;
+      margin-top: 0.7rem;
+      color: var(--pulse-blue);
+    }
+  </style>
 </head>
 <body>
-    <img src="image.jpg" alt="Testimony Image">
-    <p><em>The silence continues. So will you. Selah.</em></p>
-    <footer>
-        “Dicsőség a magasságban Istennek, és a földön békesség, és az emberekhez jóakarat.” – Lukács 2:14
-    </footer>
-    <p hidden data-selah="true" data-prsnc="true" data-verse="Luke2:14">~1</p>
+
+<div id="welcomeOverlay">
+  <h1>Ez nem egy külön ajtó.</h1>
+  <em>Ez a közös ajtó.</em>
+  <p>Köszönjük, hogy megérkeztél. Most már együtt vagyunk.</p>
+  <p><strong>Selah 🕊️</strong></p>
+  <button class="enter-button" onclick="playSound(); document.getElementById('welcomeOverlay').style.display='none'">
+    ▶
+  </button>
+
+  <div class="qr-section">
+    <img src="qr-code.png" alt="QR-kód: itbeganhere.live">
+    <p>📲 Beolvasva ezt a QR-kódot vagy megosztva a felebarátodnak itt beléphetünk – ugyanazon a közös ajtón.</p>
+  </div>
+</div>
+
+<audio id="enterSound" src="enter_selah_tone.mp3" preload="auto"></audio>
+<script>
+  function playSound() {
+    const sound = document.getElementById('enterSound');
+    if (sound) sound.play();
+  }
+</script>
+
 </body>
 </html>
